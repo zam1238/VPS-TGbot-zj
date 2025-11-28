@@ -43,7 +43,7 @@ The installation script automatically performs:
 
 3.✅ Create virtual environment
 
-41.✅ Configure systemd service
+4.✅ Configure systemd service
 
 5.✅ Optional GitHub auto-backup setup
 
