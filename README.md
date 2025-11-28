@@ -1,235 +1,249 @@
-# Telegram 多机器人托管平台，一键安装/卸载(安装后默认开启自启后台运行)
-```bash
+Telegram Multi-Bot Hosting Platform — One-Click Install/Uninstall
+
+(Automatically runs in the background with auto-start enabled after installation)
+
 bash <(curl -Ls https://raw.githubusercontent.com/alexzhang1433/VPS-TGbot/refs/heads/main/setup.sh)
-```
-> 一键部署，轻松管理多个 Telegram 客服机器人
-> 项目运营中心
-- 
-- 
-## 📖 简介
 
-这是一个完整的 Telegram 机器人托管解决方案，允许用户通过一个管理机器人来创建和管理多个客服机器人。支持直接消息转发和话题群组两种模式，内置验证码系统防止滥用。
 
-## ✨ 核心特性
+One-click deployment, easily manage multiple Telegram customer-service bots
+Project Operation Center
 
-- 🤖 **多机器人管理** - 一个平台管理无数个客服机器人
-- 💬 **双模式支持** - 直接转发模式 / 话题群组模式
-- 🔐 **智能验证** - 5种验证码类型，有效防止垃圾消息
-- 📣 **自定义欢迎语** - SQLite 数据库存储，支持自动备份   （新增）
-- 📊 **用户管理** - 查看、拉黑、解除拉黑用户
-- 💾 **数据持久化** - SQLite 数据库存储，支持自动备份
-- 🔄 **自动同步** - GitHub 自动备份，数据安全无忧
-- 👥 **管理员功能** - 用户清单、广播通知、清理失效Bot
+📖 Introduction
 
-## 🚀 快速开始
+This is a complete Telegram bot hosting solution that lets you create and manage multiple customer-service bots through a single management bot. It supports Direct Forwarding mode and Forum Topic Group mode, with a built-in verification system to prevent abuse.
 
-安装脚本会自动完成以下操作：
-1. ✅ 检查/安装 Python 3.11+
-2. ✅ 安装依赖包
-3. ✅ 创建虚拟环境
-4. ✅ 配置 systemd 服务
-5. ✅ 设置 GitHub 自动备份（可选）
+✨ Key Features
 
-## 📱 使用指南
+🤖 Multi-Bot Management – Manage unlimited customer-service bots in one platform
 
-### 用户操作流程
+💬 Two Working Modes – Direct Forwarding / Forum Topic Group
 
-#### 1️⃣ 添加机器人
+🔐 Smart Verification – 5 types of verification codes to prevent spam
 
-1. 向管理机器人发送 `/start`
-2. 点击 `➕ 添加机器人`
-3. 输入你的 Bot Token
-4. 选择工作模式：
-   - **直接转发** - 消息直接转发给你
-   - **话题群组** - 消息转发到群组的特定话题
+📣 Custom Welcome Message – Stored in SQLite with automatic backup (New)
 
-#### 2️⃣ 管理机器人
+📊 User Management – View, block, unblock users
 
-点击 `🤖 我的机器人` 查看和管理：
-- 📊 查看机器人状态
-- 👥 查看已验证用户
-- 🗑️ 删除机器人
-- ⚙️ 修改配置
+💾 Data Persistence – SQLite storage with automatic backup
 
-#### 3️⃣ 用户管理
+🔄 Auto Sync – GitHub auto-backup for data security
 
-在机器人详情页面可以：
-- ✅ 查看用户列表
-- 🚫 拉黑用户
-- ✅ 解除拉黑
-- ❌ 取消验证
+👥 Admin Features – User list, broadcast, clean invalid bots
 
-### 两种工作模式
+🚀 Quick Start
 
-#### 模式 1：直接转发（推荐新手）
+The installation script automatically performs:
 
-```
-用户 → Bot → 你的私聊
-你的私聊 → Bot → 用户
-```
+✅ Check/Install Python 3.11+
 
-**优点**：简单直接，无需配置群组  
-**适合**：个人客服、小型业务
+✅ Install required dependencies
 
-#### 模式 2：话题群组（推荐专业用户）
+✅ Create virtual environment
 
-```
-用户 → Bot → 群组话题
-群组话题 → Bot → 用户
-```
+✅ Configure systemd service
 
-**优点**：多人协作，消息分类管理  
-**适合**：团队客服、大型业务
+✅ Optional GitHub auto-backup setup
 
-**配置步骤**：
-1. 创建一个群组并开启话题功能
-2. 将 Bot 添加为管理员
-3. 在管理机器人中设置话题群组ID
+📱 Usage Guide
+User Workflow
+1️⃣ Add a Bot
 
-### 用户管理指令
+Send /start to the management bot
 
-在与客服机器人的对话中，你可以使用以下指令（**仅 Bot 拥有者可用**）：
+Tap ➕ Add Bot
 
-| 指令 | 功能 | 使用方式1：回复消息 | 使用方式2：直接输入 | 话题模式：直接输入 |
-|------|------|-------------------|-------------------|-------------------|
-| `/id` | 查看用户信息 | 回复用户消息后输入 `/id` | `/id 123456789` |   `/id`  |
-| `/b` 或 `/block` | 拉黑用户 | 回复用户消息后输入 `/b` | `/b 123456789` |   `/b`  |
-| `/ub` 或 `/unblock` | 解除拉黑 | 回复用户消息后输入 `/ub` | `/ub 123456789` |   `/ub`  |
-| `/bl` 或 `/blocklist` | 查看黑名单 | - | `/bl` 或 `/blocklist` |   `/bl`  |
-| `/uv` 或 `/unverify` | 取消验证 | 回复用户消息后输入 `/uv` | `/uv 123456789` |   `/uv`  |
+Enter your Bot Token
 
-### 指令使用示例
+Select working mode:
 
-**场景1：拉黑骚扰用户**
-```
-用户: 发送垃圾消息
-你: [回复该消息] /b
-Bot: 🚫 已将用户 123456789 加入黑名单
-```
+Direct Forwarding — Messages go directly to you
 
-**场景2：查看用户信息**
-```
-你: [回复用户消息] /id
-Bot: 用户信息
-     • 用户ID: 123456789
-     • 用户名: @example
-     • 姓名: Example User
-     • 是否验证: ✅ 已验证
-```
+Forum Topic Mode — Messages go to a specific topic in a group
 
-**场景3：批量管理**
-```
-你: /bl
-Bot: 📋 黑名单列表：
+2️⃣ Manage Bots
+
+Tap 🤖 My Bots to:
+
+📊 View bot status
+
+👥 View verified users
+
+🗑️ Delete a bot
+
+⚙️ Modify bot configuration
+
+3️⃣ User Management
+
+Inside bot details:
+
+✅ View user list
+
+🚫 Block user
+
+🔄 Unblock user
+
+❌ Remove verification
+
+Working Modes
+Mode 1: Direct Forwarding (Recommended for beginners)
+User → Bot → Your private chat
+Your private chat → Bot → User
+
+
+Pros: Simple and easy, no group configuration
+Best for: Personal support, small-scale business
+
+Mode 2: Forum Topic Group (Recommended for teams)
+User → Bot → Group Topic
+Group Topic → Bot → User
+
+
+Pros: Multi-agent collaboration, categorized messages
+Best for: Teams, larger business operations
+
+Setup:
+
+Create a group and enable Topics
+
+Add your bot as Administrator
+
+Set the topic ID inside the management bot
+
+User Management Commands
+Command	Function	Usage 1: Reply to message	Usage 2: Direct input	Topic Mode
+/id	View user info	Reply + /id	/id 123456789	/id
+/b or /block	Block user	Reply + /b	/b 123456789	/b
+/ub or /unblock	Unblock user	Reply + /ub	/ub 123456789	/ub
+/bl or /blocklist	Show blacklist	–	/bl	/bl
+/uv or /unverify	Remove verification	Reply + /uv	/uv 123456789	/uv
+Command Examples
+
+Scenario 1: Block a spammer
+
+User: sends spam
+You: [reply to user message] /b
+Bot: 🚫 User 123456789 has been blocked
+
+
+Scenario 2: View user information
+
+You: [reply to user message] /id
+Bot: User Info:
+     • ID: 123456789
+     • Username: @example
+     • Name: Example User
+     • Verified: ✅ Yes
+
+
+Scenario 3: Batch management
+
+You: /bl
+Bot: 📋 Blacklist:
      1. @user1 (ID: 111111)
      2. @user2 (ID: 222222)
 
-你: /ub 111111
-Bot: ✅ 已将用户 111111 从黑名单移除
-```
+You: /ub 111111
+Bot: ✅ User 111111 unblocked
 
-## 👑 管理员功能
+👑 Admin Features
 
-管理员（ADMIN_CHANNEL 配置的用户）拥有以下特权：
+Admins (configured in ADMIN_CHANNEL) have:
 
-| 功能 | 图标 | 说明 | 操作方式 |
-|------|------|------|---------|
-| 用户清单 | 👥 | 查看所有托管机器人的用户列表 | 支持分页浏览（每页15个） |
-| 广播通知 | 📢 | 向所有托管用户群发重要通知 | 平台维护、功能更新、紧急通告 |
-| 清理失效Bot | 🗑️ | 检测并批量删除 Token 失效的机器人 | 保持系统健康，需二次确认 |
+Feature	Icon	Description	Notes
+User List	👥	View all users across all bots	Supports pagination (15 per page)
+Broadcast	📢	Send announcement to all users	Ideal for maintenance or updates
+Clean Invalid Bots	🗑️	Remove bots with invalid tokens	Requires confirmation
+🔒 Verification System
 
-## 🔒 验证系统
+To prevent abuse, users must pass verification on first use. Five types supported:
 
-为防止滥用，用户首次使用需要通过验证，支持5种验证码类型：
+Type	Icon	Description	Example
+Math	🔢	Mixed arithmetic	12 + 5 × 3 = ?
+Number Sequence	📊	Arithmetic/geometric/square sequence	2, 4, 8, 16, ?
+Chinese Q&A	🇨🇳	Basic Chinese knowledge	Capital of China?
+Logic	🧩	Simple reasoning	If A>B and B>C, then?
+Time Q&A	⏰	Basic time knowledge	How many days in a week?
 
-| 类型 | 图标 | 说明 | 示例 |
-|------|------|------|------|
-| 数学运算 | 🔢 | 加减乘混合运算 | `12 + 5 × 3 = ?` |
-| 数字序列 | 📊 | 等差/等比/平方数列 | `2, 4, 8, 16, ?` |
-| 中文问答 | 🇨🇳 | 常识问题 | `中国的首都是？` |
-| 逻辑判断 | 🧩 | 简单推理 | `如果A>B且B>C，则？` |
-| 时间问答 | ⏰ | 基础时间常识 | `一周有几天？` |
+✅ Once verified, users don’t need to verify again.
 
-✅ 验证通过后永久有效，无需重复验证。
-
-## 🛠️ 常用命令
-
-### 服务管理
-
-| 功能 | 命令 |
-|------|------|
-| 启动服务 | `systemctl start tg_multi_bot` |
-| 停止服务 | `systemctl stop tg_multi_bot` |
-| 重启服务 | `systemctl restart tg_multi_bot` |
-| 查看状态 | `systemctl status tg_multi_bot` |
-| 关闭自启 | `systemctl disable tg_multi_bot` |
-
-## 📂 文件结构
-
-```
+🛠️ Common Commands
+Service Management
+Action	Command
+Start	systemctl start tg_multi_bot
+Stop	systemctl stop tg_multi_bot
+Restart	systemctl restart tg_multi_bot
+Status	systemctl status tg_multi_bot
+Disable auto-start	systemctl disable tg_multi_bot
+📂 File Structure
 /opt/tg_multi_bot/
-├── host_bot.py          # 主程序
-├── database.py          # 数据库模块
-├── bot_data.db          # SQLite 数据库
-├── .env                 # 环境配置
-├── backup.sh            # 备份脚本
-├── venv/                # Python 虚拟环境
-└── backup_temp/         # 备份临时目录
-```
+├── host_bot.py          # Main program
+├── database.py          # Database module
+├── bot_data.db          # SQLite database
+├── .env                 # Environment variables
+├── backup.sh            # Backup script
+├── venv/                # Python virtual environment
+└── backup_temp/         # Temporary backup directory
 
-### Q: Token 无效？
+❓ FAQ
+Q: Invalid Token?
 
-1. 检查 Token 是否正确复制（包含完整的字符串）
-2. 确认 Bot 未被删除或禁用
-3. 在 @BotFather 中重新生成 Token
+Ensure token is copied correctly
 
-### Q: 消息无法转发？
+Make sure bot is not deleted or disabled
 
-1. **直接模式**：确保你已经给 Bot 发送过 `/start`
-2. **话题模式**：确认 Bot 是群组管理员且话题ID正确
+Regenerate token via @BotFather
 
-## 📊 系统要求
+Q: Messages not forwarding?
 
-| 项目 | 要求 |
-|------|------|
-| 操作系统 | Ubuntu 20.04+ / Debian 10+ |
-| Python | 3.11 或更高版本 |
-| 内存 | 最低 512MB（推荐 1GB+） |
-| 磁盘 | 最低 1GB 可用空间 |
-| 网络 | 稳定的互联网连接 |
+Direct Mode: Ensure you have sent /start to the bot
 
+Topic Mode: Ensure bot is admin & topic ID is correct
 
-### 获取帮助
+📊 System Requirements
+Item	Requirement
+OS	Ubuntu 20.04+ / Debian 10+
+Python	3.11+
+RAM	Minimum 512MB (1GB recommended)
+Disk	Minimum 1GB free
+Network	Stable internet connection
+🆘 Getting Help
 
-- 📖 查看完整文档（本README）
-- 
+📖 See the full documentation (this README)
 
-### 报告问题
+🐛 Report Issues
 
-发现 Bug 或有建议？欢迎反馈：
-1. 提供详细的错误信息
-2. 附上日志输出
-3. 说明复现步骤
+Please include:
 
-## ⚠️ 注意事项
+Detailed error message
 
-1. **保护 Token**：切勿将 Bot Token 分享给他人
-2. **定期备份**：虽然有自动备份，建议定期手动备份
-3. **谨慎删除**：删除机器人前请确认，删除后无法恢复用户数据
-4. **合理使用**：遵守 Telegram 的使用条款和限制
-5. **监控日志**：定期查看日志，及时发现异常
+Relevant logs
 
-## 📜 开源协议
+Steps to reproduce
 
-MIT License - 自由使用，保留版权声明
+⚠️ Notes
 
-## 🎯 版本信息
+Protect your Bot Token — never share it
 
-- **当前版本**: v2.0
-- **更新日期**: 2025-11-18
-- **数据库版本**: SQLite 3
-- **Python版本**: 3.11+
+Backup regularly even though auto-backup exists
 
----
+Be careful when deleting bots — data cannot be restored
 
-**Made with ❤️ for Telegram Bot Lovers**
+Follow Telegram usage policies
+
+Monitor logs regularly for issues
+
+📜 License
+
+MIT License — Free to use with copyright notice.
+
+🎯 Version Info
+
+Current Version: v2.0
+
+Updated: 2025-11-18
+
+Database: SQLite 3
+
+Python: 3.11+
+
+Made with ❤️ for Telegram Bot Lovers
