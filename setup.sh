@@ -4,8 +4,8 @@ set -e
 APP_DIR="/opt/tg_multi_bot"
 SERVICE_NAME="tg_multi_bot"
 SCRIPT_NAME="host_bot.py"
-SCRIPT_URL="https://raw.githubusercontent.com/jyucoeng/tg_bot_platform/main/host_bot.py"
-DATABASE_URL="https://raw.githubusercontent.com/jyucoeng/tg_bot_platform/main/database.py"
+SCRIPT_URL="https://raw.githubusercontent.com/alexzhang1433/VPS-TGbot/refs/heads/main/host_bot.py"
+DATABASE_URL="https://raw.githubusercontent.com/alexzhang1433/VPS-TGbot/refs/heads/main/database.py"
 
 function check_and_install() {
   PKG=$1
